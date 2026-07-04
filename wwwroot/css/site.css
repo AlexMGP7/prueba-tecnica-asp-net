@@ -1,0 +1,297 @@
+:root {
+    --rojo-ceplan: #B7202E;
+    --rojo-oscuro: #9C1B27;
+    --azul-primario: #2E6FE5;
+    --azul-oscuro: #1B54BC;
+    --ambar: #F0A92D;
+    --gris-fondo: #EEF0F3;
+    --gris-texto: #4A4F55;
+    --verde-activo: #DCF3E3;
+    --verde-activo-texto: #1E7B3C;
+}
+
+html, body { height: 100%; }
+
+body.pagina {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--gris-fondo);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    color: var(--gris-texto);
+}
+
+/* ------- Cabecera roja ------- */
+.barra-roja {
+    background-color: var(--rojo-ceplan);
+    min-height: 64px;
+    flex-shrink: 0;
+}
+
+.logo-ceplan .logo-texto {
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    display: block;
+    line-height: 1;
+}
+
+.logo-ceplan .logo-estrella {
+    color: #fff;
+    font-size: .8rem;
+    vertical-align: super;
+}
+
+.logo-ceplan .logo-sub {
+    color: rgba(255, 255, 255, .85);
+    font-size: .55rem;
+    display: block;
+    max-width: 160px;
+    line-height: 1.1;
+}
+
+.icono-header {
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.rol-header { font-size: .7rem; opacity: .85; }
+
+/* ------- Contenido y fondo andino ------- */
+.contenido { flex: 1 1 auto; display: flex; flex-direction: column; }
+.contenido > * { flex: 1 1 auto; }
+
+.lienzo-andes {
+    background-image: url("../img/fondo-andes.svg");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    min-height: 100%;
+}
+
+/* ------- Pie institucional ------- */
+.pie {
+    background: #fff;
+    min-height: 56px;
+    flex-shrink: 0;
+    border-top: 1px solid #e3e6ea;
+}
+
+.pie-logos { font-size: .6rem; line-height: 1.15; }
+
+.pie-peru {
+    background: var(--rojo-ceplan);
+    color: #fff;
+    font-weight: 800;
+    font-size: .9rem;
+}
+
+.pie-escudo { font-size: 1rem; }
+
+.pie-pcm { background: #fff; color: #333; border: 1px solid #e3e6ea; }
+.pie-ceplan { background: #8A9199; color: #fff; }
+
+/* ------- Tarjeta de login ------- */
+.tarjeta-login { width: 380px; max-width: 92vw; border-radius: 10px; }
+.tarjeta-ayuda { width: 380px; max-width: 92vw; border-radius: 10px; }
+
+.selector-doc {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.btn-doc {
+    flex: 1;
+    border: none;
+    background: #fff;
+    padding: .45rem 0;
+    font-weight: 600;
+    color: var(--gris-texto);
+}
+
+.btn-doc.activo { background: #6E7780; color: #fff; }
+
+.campo .input-group-text { border-color: #ced4da; }
+.campo .form-control { border-color: #ced4da; box-shadow: none; }
+.campo .form-control:focus { border-color: var(--azul-primario); }
+
+.campo-error .form-control,
+.campo-error .input-group-text { border-color: #D9414E; }
+
+.mensaje-error {
+    color: #D9414E;
+    font-size: .78rem;
+    margin-top: .25rem;
+}
+
+.mensaje-error:empty { display: none; }
+.punto-error { font-weight: 700; }
+
+.boton-ojo { cursor: pointer; }
+
+.enlace-azul { color: var(--azul-primario); text-decoration: none; }
+.enlace-azul:hover { text-decoration: underline; }
+
+.btn-primario {
+    background: var(--azul-primario);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    padding: .55rem 1rem;
+}
+
+.btn-primario:hover { background: var(--azul-oscuro); color: #fff; }
+
+.btn-primario:disabled {
+    background: #A8C4F2;
+    color: #fff;
+    opacity: 1;
+}
+
+.icono-soporte {
+    background: #E8F0FE;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ------- Aviso de sesión expirada (login) ------- */
+.aviso-expiracion {
+    position: fixed;
+    right: 24px;
+    bottom: 80px;
+    background: #E8F1FD;
+    border: 1px solid #B9D3F8;
+    border-left: 4px solid var(--azul-primario);
+    max-width: 380px;
+    border-radius: 6px;
+    z-index: 1080;
+}
+
+/* ------- Bloqueo y activación ------- */
+.tarjeta-bloqueo, .tarjeta-activacion { width: 430px; max-width: 92vw; border-radius: 10px; }
+
+.circulo-icono {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: #E8F0FE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circulo-cohete {
+    width: 96px;
+    height: 96px;
+    border-radius: 46% 54% 55% 45% / 48% 46% 54% 52%;
+    background: #FBE4E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ------- Modal de sesión ------- */
+.btn-ambar {
+    background: var(--ambar);
+    color: #3D3D3D;
+    font-weight: 600;
+    border: none;
+}
+
+.btn-ambar:hover { background: #DE9922; }
+
+.icono-alerta { flex-shrink: 0; }
+
+/* ------- Perfil ------- */
+.vista-perfil { min-height: 100%; }
+
+.menu-lateral {
+    width: 64px;
+    background: #fff;
+    border-right: 1px solid #e3e6ea;
+    flex-shrink: 0;
+}
+
+.icono-menu {
+    color: #6E7780;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.icono-menu:hover { background: #F1F3F5; color: var(--gris-texto); }
+.icono-menu.activo { color: var(--rojo-ceplan); background: #FBE9EB; }
+
+.titulo-pagina { font-size: 1.6rem; font-weight: 700; color: #2F3237; }
+
+.tarjeta-perfil { border-radius: 10px; }
+
+.avatar-circulo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #A9B4C0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.insignia-activo {
+    background: var(--verde-activo);
+    color: var(--verde-activo-texto);
+    font-size: .7rem;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: .15rem .5rem;
+}
+
+.pestanas-perfil { border-bottom: 1px solid #e3e6ea; }
+
+.pestanas-perfil .nav-link {
+    color: var(--gris-texto);
+    font-weight: 500;
+    border: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    padding: .5rem 1.25rem;
+}
+
+.pestanas-perfil .nav-link.activo {
+    color: var(--azul-primario);
+    font-weight: 600;
+    border-bottom-color: var(--azul-primario);
+}
+
+.etiqueta-campo {
+    font-size: .78rem;
+    font-weight: 600;
+    color: #2F3237;
+    margin-bottom: .3rem;
+    display: block;
+}
+
+.campo-solo-lectura {
+    background: #fff;
+    color: var(--gris-texto);
+}
+
+.icono-editar { border-color: #ced4da; }

@@ -1,0 +1,132 @@
+@model Usuario
+@{
+    ViewData["Title"] = "Perfil de usuario";
+}
+
+<div class="d-flex vista-perfil">
+
+    <aside class="menu-lateral d-none d-md-flex flex-column align-items-center gap-4 pt-4">
+        <a href="#" class="icono-menu" title="Inicio">
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/></svg>
+        </a>
+        <a href="#" class="icono-menu" title="Organización">
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5zM3.5 10a1.5 1.5 0 0 0-1.5 1.5v1A1.5 1.5 0 0 0 3.5 14h1a1.5 1.5 0 0 0 1.5-1.5v-1A1.5 1.5 0 0 0 4.5 10zm4 0a1.5 1.5 0 0 0-1.5 1.5v1A1.5 1.5 0 0 0 7.5 14h1a1.5 1.5 0 0 0 1.5-1.5v-1A1.5 1.5 0 0 0 8.5 10zm4 0a1.5 1.5 0 0 0-1.5 1.5v1a1.5 1.5 0 0 0 1.5 1.5h1a1.5 1.5 0 0 0 1.5-1.5v-1a1.5 1.5 0 0 0-1.5-1.5z"/></svg>
+        </a>
+        <a href="#" class="icono-menu activo" title="Perfil de usuario">
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/><path d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/></svg>
+        </a>
+        <a href="#" class="icono-menu" title="Buscar">
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+        </a>
+    </aside>
+
+    <section class="flex-grow-1 px-4 py-3">
+        <nav class="small text-secondary mb-1">Perfil de usuario</nav>
+        <h1 class="titulo-pagina mb-4">Perfil de usuario</h1>
+
+        <div class="card border-0 shadow-sm tarjeta-perfil">
+            <div class="card-body p-4">
+
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="avatar-circulo">
+                        <svg width="42" height="42" viewBox="0 0 16 16" fill="#ffffff"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m4 6H4s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1"/></svg>
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="fw-bold fs-5">@Model.NombreCompleto</span>
+                            @if (Model.Activo)
+                            {
+                                <span class="insignia-activo">Activo</span>
+                            }
+                        </div>
+                        <div class="text-secondary small">@Model.Cargo</div>
+                        <div class="text-secondary small">@Model.Entidad</div>
+                    </div>
+                </div>
+
+                <ul class="nav pestanas-perfil mb-4">
+                    <li class="nav-item"><a class="nav-link activo" href="#">Información básica</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Responsabilidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Historial de responsabilidades</a></li>
+                </ul>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Nombres</label>
+                        <input class="form-control campo-solo-lectura" value="@Model.Nombres" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Primer Apellido</label>
+                        <input class="form-control campo-solo-lectura" value="@Model.PrimerApellido" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Segundo Apellido</label>
+                        <input class="form-control campo-solo-lectura" value="@Model.SegundoApellido" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Tipo de Documento de Identidad</label>
+                        <input class="form-control campo-solo-lectura" value="@Model.TipoDocumento" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">N° de Documento de Identidad</label>
+                        <input class="form-control campo-solo-lectura" value="@Model.NumeroDocumento" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Fecha de nacimiento</label>
+                        <input class="form-control campo-solo-lectura" value="@Model.FechaNacimiento.ToString("dd / MM / yyyy")" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Nacionalidad</label>
+                        <input class="form-control campo-solo-lectura" value="@Model.Nacionalidad" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Sexo</label>
+                        <input class="form-control campo-solo-lectura" value="@Model.Sexo" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Correo electrónico principal</label>
+                        <div class="input-group">
+                            <input class="form-control campo-solo-lectura" value="@Model.CorreoPrincipal" readonly />
+                            <span class="input-group-text bg-white icono-editar" title="Editar">
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="#2E6FE5"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/></svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Correo electrónico secundario <span class="text-secondary">(Opcional)</span></label>
+                        <input class="form-control" value="@Model.CorreoSecundario" placeholder="" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Teléfono Móvil</label>
+                        <div class="input-group">
+                            <input class="form-control campo-solo-lectura" value="@Model.TelefonoMovil" readonly />
+                            <span class="input-group-text bg-white icono-editar" title="Editar">
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="#2E6FE5"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/></svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Teléfono secundario <span class="text-secondary">(Opcional)</span></label>
+                        <div class="input-group">
+                            <select class="form-select flex-grow-0 w-auto"><option>Tipo</option><option>Fijo</option><option>Móvil</option></select>
+                            <input class="form-control" value="@Model.TelefonoSecundario" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Tipo de Contratación</label>
+                        <input class="form-control campo-solo-lectura" value="@Model.TipoContratacion" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="etiqueta-campo">Fecha de contratación</label>
+                        <input class="form-control campo-solo-lectura" value="@Model.FechaContratacion.ToString("dd / MM / yyyy")" readonly />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
