@@ -64,4 +64,4 @@ En `appsettings.Development.json` la sesión está **reducida a 2 minutos** para
 - **El CVF y el bloqueo viven en la tabla `Usuarios`**, no en sesión: el contador no se puede evadir reiniciando el navegador.
 - **Anti-CSRF** en todos los formularios (`ValidateAntiForgeryToken`), incluido el endpoint `ExtenderSesion`.
 - **Errores inline por campo** (no un mensaje genérico) para seguir fielmente el flujo del Figma.
-- Los recursos gráficos (fondo andino SVG, iconos) son propios/libres, ya que la prueba no entrega assets.
+- El escudo del Perú del footer se tomó de Wikimedia Commons (`EscudoPerú.png`, dominio público). El resto de recursos gráficos (fondo andino SVG, iconos) son propios/libres, ya que la prueba no entrega assets.

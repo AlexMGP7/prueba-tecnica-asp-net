@@ -95,7 +95,12 @@ body.pagina {
     font-size: .9rem;
 }
 
-.pie-escudo { font-size: 1rem; }
+.pie-escudo {
+    width: 22px;
+    height: 26px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
 
 .pie-pcm { background: #fff; color: #333; border: 1px solid #e3e6ea; }
 .pie-ceplan { background: #8A9199; color: #fff; }
