@@ -88,6 +88,13 @@ body.pagina {
 
 .pie-logos { font-size: .6rem; line-height: 1.15; }
 
+.pie-escudo-caja {
+    background: #fff;
+    border: 1px solid #e3e6ea;
+    border-right: none;
+    min-width: 42px;
+}
+
 .pie-peru {
     background: var(--rojo-ceplan);
     color: #fff;
