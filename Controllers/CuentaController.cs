@@ -43,7 +43,9 @@ public class CuentaController : Controller
                 return View(model);
 
             case ResultadoLogin.ContrasenaIncorrecta:
-                model.ErrorContrasena = "Contraseña incorrecta";
+                model.ErrorContrasena = resultado.IntentosRestantes > 0
+                    ? $"Contraseña incorrecta. Intentos restantes: {resultado.IntentosRestantes}"
+                    : "Contraseña incorrecta";
                 return View(model);
         }
 
@@ -83,6 +85,18 @@ public class CuentaController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout(bool expirada = false)
+    {
+        return await CerrarSesion(expirada);
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> Logout()
+    {
+        return await CerrarSesion();
+    }
+
+    private async Task<IActionResult> CerrarSesion(bool expirada = false)
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         if (expirada)

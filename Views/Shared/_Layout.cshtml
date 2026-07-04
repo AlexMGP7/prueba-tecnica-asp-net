@@ -35,10 +35,10 @@
                         <div class="rol-header">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</div>
                     </div>
                 </div>
-                <form asp-controller="Cuenta" asp-action="Logout" method="post" class="m-0" id="form-logout">
+                <form asp-controller="Cuenta" asp-action="Logout" method="post" class="m-0 d-none" id="form-logout">
                     <input type="hidden" name="expirada" value="false" id="logout-expirada" />
-                    <button type="submit" class="btn btn-sm btn-outline-light" title="Cerrar sesión">Salir</button>
                 </form>
+                <a asp-controller="Cuenta" asp-action="Logout" class="btn btn-sm btn-outline-light" title="Cerrar sesión">Salir</a>
             }
             else
             {

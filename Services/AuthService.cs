@@ -12,7 +12,11 @@ public enum ResultadoLogin
     CuentaBloqueada
 }
 
-public record LoginResultado(ResultadoLogin Resultado, Usuario? Usuario = null, int MinutosBloqueoRestantes = 0);
+public record LoginResultado(
+    ResultadoLogin Resultado,
+    Usuario? Usuario = null,
+    int MinutosBloqueoRestantes = 0,
+    int IntentosRestantes = 0);
 
 /// <summary>
 /// Valida credenciales aplicando el flujo del diseño:
@@ -65,7 +69,8 @@ public class AuthService
             }
 
             await _db.SaveChangesAsync();
-            return new LoginResultado(ResultadoLogin.ContrasenaIncorrecta, usuario);
+            var intentosRestantes = Math.Max(_maxIntentos - usuario.IntentosFallidos, 0);
+            return new LoginResultado(ResultadoLogin.ContrasenaIncorrecta, usuario, IntentosRestantes: intentosRestantes);
         }
 
         // Credenciales válidas: se reinicia el contador y se limpia cualquier bloqueo vencido
