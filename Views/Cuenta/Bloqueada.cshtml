@@ -1,6 +1,7 @@
 @{
     ViewData["Title"] = "Cuenta bloqueada";
     var minutos = (int)(ViewBag.Minutos ?? 15);
+    var soporteNotificado = ViewBag.SoporteNotificado == true;
 }
 
 <div class="lienzo-andes d-flex align-items-center justify-content-center py-5">
@@ -15,7 +16,14 @@
                 Por seguridad, tu cuenta ha sido bloqueada durante @minutos minutos.
                 Intente nuevamente más tarde.
             </p>
-            <a asp-action="Login" class="btn btn-primario px-5">Volver al inicio</a>
+            @if (soporteNotificado)
+            {
+                <div class="alert alert-info small text-start">Se notificó al área de soporte técnico para revisar el desbloqueo de la cuenta.</div>
+            }
+            <form asp-action="NotificarSoporte" method="post" class="mb-3">
+                <button type="submit" class="btn btn-primario px-4">Notificar soporte técnico</button>
+            </form>
+            <a asp-action="Login" class="enlace-azul small">Volver al inicio</a>
         </div>
     </div>
 </div>

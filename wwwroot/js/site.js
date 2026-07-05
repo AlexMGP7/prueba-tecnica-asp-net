@@ -1,34 +1,40 @@
-// ===== Página de login: selector DNI/CE, mostrar contraseña, estado del botón =====
+// ===== Selector DNI/CE compartido =====
+(function () {
+    document.querySelectorAll('form').forEach(function (formulario) {
+        const tipoDocumento = formulario.querySelector('input[name="TipoDocumento"]');
+        const usuario = formulario.querySelector('input[name="Usuario"], input[name="NumeroDocumento"]');
+        if (!tipoDocumento || !usuario) return;
+
+        formulario.querySelectorAll('.btn-doc').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                formulario.querySelectorAll('.btn-doc').forEach(b => b.classList.remove('activo'));
+                btn.classList.add('activo');
+                tipoDocumento.value = btn.dataset.tipo;
+                usuario.maxLength = btn.dataset.tipo === 'DNI' ? 8 : 9;
+                usuario.value = '';
+                usuario.focus();
+                usuario.dispatchEvent(new Event('input', { bubbles: true }));
+            });
+        });
+
+        usuario.addEventListener('input', function () {
+            if (tipoDocumento.value === 'DNI') {
+                usuario.value = usuario.value.replace(/\D/g, '');
+            }
+        });
+    });
+})();
+
+// ===== Página de login: mostrar contraseña y estado del botón =====
 (function () {
     const formLogin = document.getElementById('form-login');
     if (!formLogin) return;
 
-    const tipoDocumento = document.getElementById('tipoDocumento');
     const usuario = formLogin.querySelector('input[name="Usuario"]');
     const contrasena = formLogin.querySelector('input[name="Contrasena"]');
     const btnIngresar = document.getElementById('btnIngresar');
 
-    // Selector de tipo de documento (DNI: 8 dígitos, CE: hasta 9 caracteres)
-    formLogin.querySelectorAll('.btn-doc').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            formLogin.querySelectorAll('.btn-doc').forEach(b => b.classList.remove('activo'));
-            btn.classList.add('activo');
-            tipoDocumento.value = btn.dataset.tipo;
-            usuario.maxLength = btn.dataset.tipo === 'DNI' ? 8 : 9;
-            usuario.value = '';
-            usuario.focus();
-            actualizarBoton();
-        });
-    });
-
-    // El DNI solo admite dígitos
-    usuario.addEventListener('input', function () {
-        if (tipoDocumento.value === 'DNI') {
-            usuario.value = usuario.value.replace(/\D/g, '');
-        }
-        actualizarBoton();
-    });
-
+    usuario.addEventListener('input', actualizarBoton);
     contrasena.addEventListener('input', actualizarBoton);
 
     function actualizarBoton() {

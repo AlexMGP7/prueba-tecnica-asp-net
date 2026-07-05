@@ -44,25 +44,27 @@
                     </div>
                 </div>
 
-                <ul class="nav pestanas-perfil mb-4">
-                    <li class="nav-item"><a class="nav-link activo" href="#">Información básica</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Responsabilidades</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Historial de responsabilidades</a></li>
+                <ul class="nav pestanas-perfil mb-4" role="tablist">
+                    <li class="nav-item" role="presentation"><button class="nav-link activo" data-bs-toggle="tab" data-bs-target="#info-basica" type="button" role="tab">Información básica</button></li>
+                    <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#responsabilidades" type="button" role="tab">Responsabilidades</button></li>
+                    <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#historial" type="button" role="tab">Historial de responsabilidades</button></li>
                 </ul>
 
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <label class="etiqueta-campo">Nombres</label>
-                        <input class="form-control campo-solo-lectura" value="@Model.Nombres" readonly />
-                    </div>
-                    <div class="col-md-4">
-                        <label class="etiqueta-campo">Primer Apellido</label>
-                        <input class="form-control campo-solo-lectura" value="@Model.PrimerApellido" readonly />
-                    </div>
-                    <div class="col-md-4">
-                        <label class="etiqueta-campo">Segundo Apellido</label>
-                        <input class="form-control campo-solo-lectura" value="@Model.SegundoApellido" readonly />
-                    </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="info-basica" role="tabpanel">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <label class="etiqueta-campo">Nombres</label>
+                                <input class="form-control campo-solo-lectura" value="@Model.Nombres" readonly />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="etiqueta-campo">Primer Apellido</label>
+                                <input class="form-control campo-solo-lectura" value="@Model.PrimerApellido" readonly />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="etiqueta-campo">Segundo Apellido</label>
+                                <input class="form-control campo-solo-lectura" value="@Model.SegundoApellido" readonly />
+                            </div>
 
                     <div class="col-md-4">
                         <label class="etiqueta-campo">Tipo de Documento de Identidad</label>
@@ -120,9 +122,46 @@
                         <label class="etiqueta-campo">Tipo de Contratación</label>
                         <input class="form-control campo-solo-lectura" value="@Model.TipoContratacion" readonly />
                     </div>
-                    <div class="col-md-4">
-                        <label class="etiqueta-campo">Fecha de contratación</label>
-                        <input class="form-control campo-solo-lectura" value="@Model.FechaContratacion.ToString("dd / MM / yyyy")" readonly />
+                            <div class="col-md-4">
+                                <label class="etiqueta-campo">Fecha de contratación</label>
+                                <input class="form-control campo-solo-lectura" value="@Model.FechaContratacion.ToString("dd / MM / yyyy")" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="responsabilidades" role="tabpanel">
+                        <div class="tabla-demo">
+                            <div class="fila-demo encabezado">
+                                <span>Entidad</span>
+                                <span>Responsabilidad</span>
+                                <span>Estado</span>
+                            </div>
+                            <div class="fila-demo">
+                                <span>@Model.Entidad</span>
+                                <span>@Model.Cargo</span>
+                                <span><span class="insignia-activo">Activo</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="historial" role="tabpanel">
+                        <div class="tabla-demo">
+                            <div class="fila-demo encabezado">
+                                <span>Fecha</span>
+                                <span>Evento</span>
+                                <span>Detalle</span>
+                            </div>
+                            <div class="fila-demo">
+                                <span>@Model.FechaContratacion.ToString("dd/MM/yyyy")</span>
+                                <span>Alta de responsabilidad</span>
+                                <span>@Model.Cargo en @Model.Entidad</span>
+                            </div>
+                            <div class="fila-demo">
+                                <span>@DateTime.Now.ToString("dd/MM/yyyy")</span>
+                                <span>Consulta de perfil</span>
+                                <span>Sesión autenticada correctamente</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

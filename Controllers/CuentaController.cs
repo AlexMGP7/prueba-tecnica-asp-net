@@ -1,18 +1,27 @@
 using System.Security.Claims;
+using GestionUsuarios.Data;
 using GestionUsuarios.Models;
 using GestionUsuarios.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestionUsuarios.Controllers;
 
 public class CuentaController : Controller
 {
     private readonly AuthService _authService;
+    private readonly AppDbContext _db;
+    private readonly ILogger<CuentaController> _logger;
 
-    public CuentaController(AuthService authService) => _authService = authService;
+    public CuentaController(AuthService authService, AppDbContext db, ILogger<CuentaController> logger)
+    {
+        _authService = authService;
+        _db = db;
+        _logger = logger;
+    }
 
     [HttpGet]
     public IActionResult Login()
@@ -67,14 +76,76 @@ public class CuentaController : Controller
     }
 
     [HttpGet]
-    public IActionResult Bloqueada(int minutos = 15)
+    public IActionResult Bloqueada(int minutos = 15, bool soporte = false)
     {
         ViewBag.Minutos = minutos;
+        ViewBag.SoporteNotificado = soporte;
         return View();
     }
 
     [HttpGet]
-    public IActionResult Activacion() => View();
+    public IActionResult Activacion() => View(new ActivacionViewModel());
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Activacion(ActivacionViewModel model)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var usuario = await _db.Usuarios.AsNoTracking().FirstOrDefaultAsync(u =>
+            u.TipoDocumento == model.TipoDocumento &&
+            u.NumeroDocumento == model.NumeroDocumento.Trim() &&
+            u.Activo);
+
+        if (usuario is null)
+        {
+            model.MensajeError = "No se encontró una cuenta activa con ese documento.";
+            return View(model);
+        }
+
+        model.Activada = true;
+        model.Nombre = usuario.Nombres.Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? usuario.Nombres;
+        _logger.LogInformation("Cuenta activada en flujo demo para {TipoDocumento}-{NumeroDocumento}",
+            usuario.TipoDocumento, usuario.NumeroDocumento);
+        return View(model);
+    }
+
+    [HttpGet]
+    public IActionResult RecuperarContrasena() => View(new RecuperarContrasenaViewModel());
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RecuperarContrasena(RecuperarContrasenaViewModel model)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var usuario = await _db.Usuarios.AsNoTracking().FirstOrDefaultAsync(u =>
+            u.TipoDocumento == model.TipoDocumento &&
+            u.NumeroDocumento == model.NumeroDocumento.Trim() &&
+            u.CorreoPrincipal == model.Correo.Trim() &&
+            u.Activo);
+
+        if (usuario is null)
+        {
+            model.MensajeError = "Los datos ingresados no coinciden con una cuenta registrada.";
+            return View(model);
+        }
+
+        model.Enviado = true;
+        _logger.LogInformation("[CORREO SIMULADO] Para: {Correo} - Asunto: Recuperación de contraseña.",
+            usuario.CorreoPrincipal);
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult NotificarSoporte()
+    {
+        _logger.LogWarning("[SOPORTE SIMULADO] Solicitud de revisión de cuenta bloqueada enviada a control técnico.");
+        return RedirectToAction(nameof(Bloqueada), new { soporte = true });
+    }
 
     /// <summary>Mantiene viva la sesión cuando el usuario pulsa "Extender sesión".</summary>
     [HttpPost]

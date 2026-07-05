@@ -1,5 +1,7 @@
+@model ActivacionViewModel
 @{
     ViewData["Title"] = "Activación de cuenta";
+    var esDni = Model.TipoDocumento != "CE";
 }
 
 <div class="lienzo-andes d-flex align-items-center justify-content-center py-5">
@@ -8,10 +10,39 @@
             <div class="circulo-cohete mx-auto mb-4">
                 <svg width="46" height="46" viewBox="0 0 16 16" fill="#D9414E"><path d="M14.064 0H8.64a2 2 0 0 0-1.414.586l-5.9 5.9c-.393.391-.393 1.024 0 1.414l6.774 6.774c.39.393 1.023.393 1.414 0l5.9-5.9A2 2 0 0 0 16 7.36V1.936A1.94 1.94 0 0 0 14.064 0M11.5 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/><path d="M3.56 14.56A1.5 1.5 0 0 1 1.44 12.44l.44-.44 2.12 2.12z"/></svg>
             </div>
-            <h4 class="fw-bold mb-4">¡Bienvenida, July!</h4>
-            <p class="text-secondary mb-2">Su cuenta en el aplicativo X está activada.</p>
-            <p class="text-secondary mb-4">Ya puede iniciar sesión.</p>
-            <a asp-action="Login" class="btn btn-primario px-5">Iniciar sesión</a>
+            @if (Model.Activada)
+            {
+                <h4 class="fw-bold mb-4">¡Bienvenida, @Model.Nombre!</h4>
+                <p class="text-secondary mb-2">Su cuenta en el aplicativo X está activada.</p>
+                <p class="text-secondary mb-4">Ya puede iniciar sesión.</p>
+                <a asp-action="Login" class="btn btn-primario px-5">Iniciar sesión</a>
+            }
+            else
+            {
+                <h4 class="fw-bold mb-3">Activación de cuenta</h4>
+                <p class="text-secondary small mb-4">Ingrese el documento registrado para activar la cuenta de prueba.</p>
+
+                <form asp-action="Activacion" method="post" class="text-start formulario-secundario">
+                    <input type="hidden" asp-for="TipoDocumento" id="tipoDocumento" />
+
+                    <div class="selector-doc d-flex mb-3" role="tablist">
+                        <button type="button" class="btn-doc @(esDni ? "activo" : "")" data-tipo="DNI">DNI</button>
+                        <button type="button" class="btn-doc @(!esDni ? "activo" : "")" data-tipo="CE">CE</button>
+                    </div>
+
+                    <label asp-for="NumeroDocumento" class="form-label">Número de documento</label>
+                    <input asp-for="NumeroDocumento" class="form-control mb-1" placeholder="Ingresar documento" maxlength="12" />
+                    <span asp-validation-for="NumeroDocumento" class="mensaje-error d-block"></span>
+
+                    @if (Model.MensajeError != null)
+                    {
+                        <div class="mensaje-error mb-2"><span class="punto-error">&#8856;</span> @Model.MensajeError</div>
+                    }
+
+                    <button type="submit" class="btn btn-primario w-100 mt-3">Activar cuenta</button>
+                    <a asp-action="Login" class="btn btn-link w-100 mt-2 enlace-azul">Volver al inicio</a>
+                </form>
+            }
         </div>
     </div>
 </div>

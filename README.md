@@ -17,9 +17,12 @@ Implementación del flujo de **inicio de sesión con validación de usuario, con
 - **Login** con selector de tipo de documento (DNI / CE), campos con iconos, mostrar/ocultar contraseña y botón deshabilitado hasta completar los campos.
 - **Validación de credenciales** contra SQL Server con mensajes inline según el flujo del diseño: *"Usuario incorrecto"* y *"Contraseña incorrecta"*.
 - **CVF (Contador de Validaciones Fallidas)**: al 5.º intento fallido la cuenta se **bloquea 15 minutos** y se muestra la pantalla *"Cuenta bloqueada temporalmente"*. El envío del correo de notificación (N2 del diseño) se simula en el log de la aplicación.
+- **Activación de cuenta** funcional: valida el documento contra SQL Server y muestra la confirmación *"¡Bienvenida, July!"* cuando la cuenta existe.
+- **Recuperación de contraseña** funcional: valida documento + correo registrado y simula el envío de instrucciones en el log.
+- **Notificación a soporte técnico** desde la pantalla de cuenta bloqueada, con confirmación visible para el usuario.
 - **Perfil de usuario** tras autenticarse (pestañas, información básica, insignia "Activo"), protegido con `[Authorize]`.
 - **Expiración de sesión por inactividad (20 min)**: modal *"Su sesión está a punto de expirar"* con cuenta regresiva y botón **Extender sesión** (renueva la cookie vía fetch). Si el tiempo se agota, se cierra la sesión y el login muestra *"Su sesión ha expirado debido a inactividad"*.
-- **Pantalla de activación de cuenta** (`/Cuenta/Activacion`).
+- **Pestañas funcionales** en el perfil: información básica, responsabilidades e historial.
 
 ## Cómo ejecutarlo
 

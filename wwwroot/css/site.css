@@ -293,6 +293,13 @@ body.pagina {
     border-bottom-color: var(--azul-primario);
 }
 
+.pestanas-perfil .nav-link.active {
+    color: var(--azul-primario);
+    font-weight: 600;
+    border-bottom-color: var(--azul-primario);
+    background: transparent;
+}
+
 .etiqueta-campo {
     font-size: .78rem;
     font-weight: 600;
@@ -307,3 +314,29 @@ body.pagina {
 }
 
 .icono-editar { border-color: #ced4da; }
+
+.formulario-secundario { max-width: 330px; margin: 0 auto; }
+
+.tabla-demo {
+    border: 1px solid #e3e6ea;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.fila-demo {
+    display: grid;
+    grid-template-columns: 1.2fr 1.4fr .7fr;
+    gap: 1rem;
+    align-items: center;
+    padding: .9rem 1rem;
+    border-top: 1px solid #e3e6ea;
+    font-size: .9rem;
+}
+
+.fila-demo:first-child { border-top: 0; }
+
+.fila-demo.encabezado {
+    background: #F4F6F8;
+    color: #2F3237;
+    font-weight: 700;
+}

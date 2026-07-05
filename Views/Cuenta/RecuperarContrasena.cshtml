@@ -1,0 +1,52 @@
+@model RecuperarContrasenaViewModel
+@{
+    ViewData["Title"] = "Recuperar contraseña";
+    var esDni = Model.TipoDocumento != "CE";
+}
+
+<div class="lienzo-andes d-flex align-items-center justify-content-center py-5">
+    <div class="tarjeta-activacion card border-0 shadow-sm text-center">
+        <div class="card-body p-5">
+            <div class="circulo-icono mx-auto mb-3">
+                <svg width="42" height="42" viewBox="0 0 16 16" fill="#2E6FE5"><path d="M8 1a5 5 0 0 0-5 5v1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h1a2 2 0 0 0 2 2h1.5a.5.5 0 0 0 0-1H5a1 1 0 0 1-1-1V6a4 4 0 0 1 8 0v7a1 1 0 0 1-1 1H9.5a.5.5 0 0 0 0 1H11a2 2 0 0 0 2-2h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-1V6a5 5 0 0 0-5-5"/></svg>
+            </div>
+
+            @if (Model.Enviado)
+            {
+                <h4 class="fw-bold mb-3">Solicitud enviada</h4>
+                <p class="text-secondary mb-4">Si los datos son correctos, se enviaron las instrucciones de recuperación al correo registrado.</p>
+                <a asp-action="Login" class="btn btn-primario px-5">Volver al inicio</a>
+            }
+            else
+            {
+                <h4 class="fw-bold mb-3">Recuperar contraseña</h4>
+                <p class="text-secondary small mb-4">Ingrese su documento y correo registrado para simular el envío de recuperación.</p>
+
+                <form asp-action="RecuperarContrasena" method="post" class="text-start formulario-secundario">
+                    <input type="hidden" asp-for="TipoDocumento" id="tipoDocumento" />
+
+                    <div class="selector-doc d-flex mb-3" role="tablist">
+                        <button type="button" class="btn-doc @(esDni ? "activo" : "")" data-tipo="DNI">DNI</button>
+                        <button type="button" class="btn-doc @(!esDni ? "activo" : "")" data-tipo="CE">CE</button>
+                    </div>
+
+                    <label asp-for="NumeroDocumento" class="form-label">Número de documento</label>
+                    <input asp-for="NumeroDocumento" class="form-control mb-2" placeholder="Ingresar documento" maxlength="12" />
+                    <span asp-validation-for="NumeroDocumento" class="mensaje-error d-block"></span>
+
+                    <label asp-for="Correo" class="form-label">Correo registrado</label>
+                    <input asp-for="Correo" class="form-control mb-1" placeholder="correo@entidad.gob.pe" />
+                    <span asp-validation-for="Correo" class="mensaje-error d-block"></span>
+
+                    @if (Model.MensajeError != null)
+                    {
+                        <div class="mensaje-error mb-2"><span class="punto-error">&#8856;</span> @Model.MensajeError</div>
+                    }
+
+                    <button type="submit" class="btn btn-primario w-100 mt-3">Enviar instrucciones</button>
+                    <a asp-action="Login" class="btn btn-link w-100 mt-2 enlace-azul">Volver al inicio</a>
+                </form>
+            }
+        </div>
+    </div>
+</div>
