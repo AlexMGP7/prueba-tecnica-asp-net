@@ -160,6 +160,17 @@ public class CuentaController : Controller
         return await CerrarSesion(expirada);
     }
 
+    /// <summary>
+    /// Destino del temporizador del cliente cuando la cuenta regresiva llega a 0.
+    /// Es GET sin antiforgery a propósito: en ese momento la cookie ya expiró en el
+    /// servidor y un POST con token del usuario autenticado fallaría con 400.
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> SesionExpirada()
+    {
+        return await CerrarSesion(expirada: true);
+    }
+
     private async Task<IActionResult> CerrarSesion(bool expirada = false)
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

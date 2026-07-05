@@ -66,7 +66,6 @@
     const modal = new bootstrap.Modal(modalElemento);
     const contador = document.getElementById('segundosRestantes');
     const formLogout = document.getElementById('form-logout');
-    const inputExpirada = document.getElementById('logout-expirada');
 
     let temporizadorAviso = null;
     let temporizadorCuenta = null;
@@ -92,8 +91,9 @@
     }
 
     function cerrarPorInactividad() {
-        inputExpirada.value = 'true';
-        formLogout.submit();
+        // La cookie ya expiró en el servidor: se usa un GET dedicado en lugar del
+        // formulario de logout, cuyo token antiforgery dejaría de validar (400).
+        window.location.href = '/Cuenta/SesionExpirada';
     }
 
     // "Extender sesión": renueva la cookie en el servidor y reinicia el temporizador
