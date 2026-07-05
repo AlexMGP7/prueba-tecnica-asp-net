@@ -160,13 +160,6 @@ public class CuentaController : Controller
         return await CerrarSesion(expirada);
     }
 
-    [HttpGet]
-    [Authorize]
-    public async Task<IActionResult> Logout()
-    {
-        return await CerrarSesion();
-    }
-
     private async Task<IActionResult> CerrarSesion(bool expirada = false)
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
